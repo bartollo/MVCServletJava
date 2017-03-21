@@ -94,9 +94,9 @@ public class PessoaModel {
             String sql = "insert into Pessoa (nome) values (?)";
             PreparedStatement ps = conn.prepareStatement(sql);
              
-             ps.setString(1, pessoa.getNome());
+            ps.setString(1, pessoa.getNome());
              
-             return ps.execute(); 
+            return ps.execute();
     }
     
     public void update(Pessoa pessoa) throws Exception{

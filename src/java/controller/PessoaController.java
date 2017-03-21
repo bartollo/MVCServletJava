@@ -76,12 +76,21 @@ public class PessoaController extends HttpServlet {
             try{
                 switch(request.getParameter("acao")){
                     case "add":                 
-                        if (request.getParameter("name")==null) {                            
+                        if (request.getParameter("nome")==null) {                            
                             RequestDispatcher r = request.getRequestDispatcher("/pessoaInserir.jsp");  
                             r.forward( request, response ); 
                         }else{
-                            p.setNome(request.getParameter("nome").toString());
-                            this.addPessoa(p);
+                            p.setNome(request.getParameter("nome").toString());      
+                            boolean retorno=  this.addPessoa(p);
+                            
+                                request.getSession().setAttribute("retorno", retorno);
+                            
+                            if(retorno){                                
+                                request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response);
+                            }else{                                
+                                request.getSession().setAttribute("pessoa", p);
+                                request.getRequestDispatcher("/pessoaInserir.jsp").forward(request,response);
+                            }
                         }
                         break;
 
@@ -104,8 +113,18 @@ public class PessoaController extends HttpServlet {
 
     }
     
-    public void addPessoa(entity.Pessoa pessoa){
+    public boolean addPessoa(Pessoa pessoa){  
         
+        
+        model.PessoaModel pm = new model.PessoaModel();
+           try{               
+                return pm.insert(pessoa);                
+                
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        
+            return false;
     }
     
     public void delPessoa(int pessoa_id){

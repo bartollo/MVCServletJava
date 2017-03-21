@@ -1,10 +1,9 @@
 <%-- 
-    Document   : veiculoListar
-    Created on : 19/03/2017, 16:15:25
+    Document   : index
+    Created on : 19/03/2017, 15:38:01
     Author     : bartollo_user
 --%>
 
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -36,7 +35,6 @@
 
 <body>
 
-
     <div id="wrapper" class="toggled">
 
         <!-- Sidebar -->
@@ -58,47 +56,28 @@
         <!-- /#sidebar-wrapper -->
 
         <!-- Page Content -->
-        <div id="page-content-wrapper">    
-
-    <div class="row">
-
-
-        <div class="col-md-12">
-            <h1>Lista de Pessoas      </h1>
-           
-            <button type="button" class="btn btn-success" onclick="javascript:window.location.href='pessoa?acao=add'">Adicionar</button>
-            <div class="table-responsive">
-
-
-                <table id="mytable" class="table table-bordred table-striped">
-
-                    <thead>
-
-                    <th>ID</th>
-                    <th  width="75%">Nome</th>
-                    <th>Editar</th>
-
-                    <th>Deletar</th>
-                    </thead>
-                    <tbody>
-                        
-                    <c:forEach var="pessoa" items="${pessoas}" >
-                        <tr>
-                            <td>${pessoa.id}</td>
-                            <td>${pessoa.nome}</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                        </tr>
-                    </c:forEach>
-
-                    </tbody>
-
-                </table>
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1>Sistema de cadastramento de veículos e proprietários</h1>
+                        <p>Este Sistema possui duas entidades intituladas Veículo e Pessoa.</p>
+                        <p> Veículo { id int, placa String , marca String, pessoa_id int}</p>
+                        <p> Pessoa { id int, nome String} </p>
+                    </div>
+                </div>
             </div>
-
         </div>
+        <!-- /#page-content-wrapper -->
+
     </div>
-</div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
 
 </body>
 
