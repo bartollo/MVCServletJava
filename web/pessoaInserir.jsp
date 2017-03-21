@@ -4,6 +4,7 @@
     Author     : bartollo_user
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -56,18 +57,20 @@
                         <fieldset>
 
                             <!-- Form Name -->
-                            <legend>Cadastro de Pessoa</legend>     
-            <c:out value="${retorno}">
-<c:if test="${retorno}">
-   <h2> Inserido com sucesso! </h2>
-</c:if>                             
+                            <legend>Cadastro de Pessoa</legend>  
+                            <c:if test="${p.nome != null}">                           
+                            <div class="alert alert-success" style="width:80%">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                                <strong>Successo!</strong> Registro inserido!
+                            </div>
+                            </c:if>
                                 
                                 <input type="hidden" name="acao" value="add">
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">ID</label>  
                                     <div class="col-md-4">
-                                        <input name="id" class="form-control input-md" id="textinput" type="text" placeholder="" disabled="disabled">
+                                        <input name="id" class="form-control input-md" id="textinput" type="text" placeholder="" disabled="disabled" value="<c:out value="${p.id}"/>">
                                     </div>
                                 </div>                            
 
@@ -75,7 +78,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">Nome</label>  
                                     <div class="col-md-4">
-                                        <input name="nome" class="form-control input-md" id="textinput" type="text" placeholder="Nome da Pessoa">
+                                        <input name="nome" class="form-control input-md" id="textinput" type="text" placeholder="Nome da Pessoa" value="<c:out value="${p.nome}"/>"">
                                     </div>
                                 </div>
 

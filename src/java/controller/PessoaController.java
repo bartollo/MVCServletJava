@@ -76,22 +76,22 @@ public class PessoaController extends HttpServlet {
             try{
                 switch(request.getParameter("acao")){
                     case "add":                 
-                        if (request.getParameter("nome")==null) {                            
-                            RequestDispatcher r = request.getRequestDispatcher("/pessoaInserir.jsp");  
-                            r.forward( request, response ); 
-                        }else{
+                        if (request.getParameter("nome")!=null) {                            
                             p.setNome(request.getParameter("nome").toString());      
                             boolean retorno=  this.addPessoa(p);
                             
-                                request.getSession().setAttribute("retorno", retorno);
-                            
+                            RequestDispatcher r = request.getRequestDispatcher("/pessoaInserir.jsp");  
+
                             if(retorno){                                
-                                request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response);
-                            }else{                                
-                                request.getSession().setAttribute("pessoa", p);
-                                request.getRequestDispatcher("/pessoaInserir.jsp").forward(request,response);
+                                request.getRequestDispatcher("/pessoa?acao=add&reg=ok").forward(request,response);
+                            }else{                                                                                           
+                              request.getSession().setAttribute("p", p);
+                                r.forward( request, response ); 
                             }
-                        }
+                        }else{
+                            RequestDispatcher r = request.getRequestDispatcher("/pessoaInserir.jsp");  
+                            r.forward( request, response ); 
+                        
                         break;
 
                     case "upd": 
