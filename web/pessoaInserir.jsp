@@ -58,10 +58,10 @@
 
                             <!-- Form Name -->
                             <legend>Cadastro de Pessoa</legend>  
-                            <c:if test="${p.nome != null}">                           
-                            <div class="alert alert-success" style="width:80%">
+                            <c:if test="${retorno == 0}">                           
+                            <div class="alert alert-danger" style="width:80%">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-                                <strong>Successo!</strong> Registro inserido!
+                                <strong>Ops!</strong> Registro não inserido!
                             </div>
                             </c:if>
                                 

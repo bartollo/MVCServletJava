@@ -25,6 +25,15 @@
     <!-- Custom CSS -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
 
+    <style>
+        button {
+            border: 1px #AAA solid;
+            padding: 4px 10px;
+        }
+        .hide {
+            display: none;
+        }
+    </style>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -35,8 +44,22 @@
 </head>
 
 <body>
-
-
+<div id="modal-from-dom" class="modal hide fade">
+    <div class="modal-header">
+        <a href="#" class="close">&times;</a>
+         <h3>Delete URL</h3>
+    </div>
+    <div class="modal-body">
+        <p>You are about to delete one track url, this procedure is irreversible.</p>
+        <p>Do you want to proceed?</p>
+        <p id="debug-url"></p>
+    </div>
+    <div class="modal-footer">
+        <a href="delete.php?ref=" class="btn danger">Yes</a>
+        <!-- <a href="delete.php?some=param&ref=" class="btn danger">Yes 2</a> -->
+        <a href="#" data-dismiss="modal" class="btn secondary">No</a>
+    </div>
+</div>    
     <div id="wrapper" class="toggled">
 
         <!-- Sidebar -->
@@ -65,7 +88,12 @@
 
         <div class="col-md-12">
             <h1>Lista de Pessoas      </h1>
-           
+            <c:if test="${retorno > 0}">                           
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                <strong>Successo!</strong> Registro inserido!
+            </div>
+            </c:if>           
             <button type="button" class="btn btn-success" onclick="javascript:window.location.href='pessoa?acao=add'">Adicionar</button>
             <div class="table-responsive">
 
@@ -86,8 +114,8 @@
                         <tr>
                             <td>${pessoa.id}</td>
                             <td>${pessoa.nome}</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                            <td><p data-placement="top" data-toggle="tooltip" title="Edit" id="${pessoa.id}"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                            <td><p data-placement="top" data-toggle="tooltip" title="Delete" id="${pessoa.id}"><button class="btn confirm-delete btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
                         </tr>
                     </c:forEach>
 
@@ -101,5 +129,27 @@
 </div>
 
 </body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $('#modal-from-dom').on('show', function() {
+        var id = $(this).data('id'),
+            removeBtn = $(this).find('.danger');
+
+            removeBtn.attr('href', removeBtn.attr('href').replace(/(&|\?)ref=\d*/, '$1ref=' + id));
+
+            $('#debug-url').html('Delete URL: <strong>' + removeBtn.attr('href') + '</strong>');
+        });
+
+        $('.confirm-delete').on('click', function(e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+            $('#modal-from-dom').data('id', id).modal('show');
+        });
+
+</script>
 
 </html>

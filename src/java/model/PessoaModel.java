@@ -89,14 +89,16 @@ public class PessoaModel {
         
     }
     
-    public boolean insert(Pessoa pessoa) throws SQLException {   
+    public int insert(Pessoa pessoa) throws SQLException {   
         
             String sql = "insert into Pessoa (nome) values (?)";
             PreparedStatement ps = conn.prepareStatement(sql);
              
             ps.setString(1, pessoa.getNome());
-             
-            return ps.execute();
+                        
+            return ps.executeUpdate();
+           
+            
     }
     
     public void update(Pessoa pessoa) throws Exception{

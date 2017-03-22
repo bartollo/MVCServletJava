@@ -73,25 +73,26 @@ public class PessoaController extends HttpServlet {
            
         }else{
         
-            try{
                 switch(request.getParameter("acao")){
                     case "add":                 
                         if (request.getParameter("nome")!=null) {                            
-                            p.setNome(request.getParameter("nome").toString());      
-                            boolean retorno=  this.addPessoa(p);
-                            
-                            RequestDispatcher r = request.getRequestDispatcher("/pessoaInserir.jsp");  
-
-                            if(retorno){                                
-                                request.getRequestDispatcher("/pessoa?acao=add&reg=ok").forward(request,response);
-                            }else{                                                                                           
-                              request.getSession().setAttribute("p", p);
-                                r.forward( request, response ); 
+                            p.setNome(request.getParameter("nome").toString());
+                           
+                            System.out.println(p.getNome());
+                            if(this.addPessoa(p)){
+                                request.getSession().setAttribute("pessoas", pm.selectAll());
+                                request.getSession().setAttribute("retorno", 1);
+                                request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response); 
+                            }else{
+                                request.getSession().setAttribute("retorno", 0);
+                                                               
                             }
+                             request.getRequestDispatcher("/pessoaInserir.jsp").forward(request,response);
+                         
                         }else{
                             RequestDispatcher r = request.getRequestDispatcher("/pessoaInserir.jsp");  
                             r.forward( request, response ); 
-                        
+                        }
                         break;
 
                     case "upd": 
@@ -105,9 +106,8 @@ public class PessoaController extends HttpServlet {
 
                         break;            
 
-                }
-            }catch(Exception e){
-
+                
+            
             }
         }
 
@@ -118,7 +118,11 @@ public class PessoaController extends HttpServlet {
         
         model.PessoaModel pm = new model.PessoaModel();
            try{               
-                return pm.insert(pessoa);                
+                if(pm.insert(pessoa)>0){
+                    return true;
+                }else{
+                    return false;
+                }                
                 
             }catch(Exception e){
                 e.printStackTrace();
