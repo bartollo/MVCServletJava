@@ -101,23 +101,36 @@ public class PessoaModel {
             
     }
     
-    public void update(Pessoa pessoa) throws Exception{
+    public boolean update(Pessoa pessoa) throws Exception{
         
         String sql = "update Pessoa set nome =? where id=?";
         PreparedStatement ps = conn.prepareStatement(sql);
 
         ps.setString(1, pessoa.getNome());
+        ps.setString(2, pessoa.getId()+"");        
 
-        ps.execute(); 
+        try{ 
+            ps.execute();
+           } catch(Exception e) {
+            return false;
+           }
+
+        return true;
     }
     
-    public void delete(Pessoa pessoa) throws Exception{     
+    public boolean delete(Pessoa pessoa) throws Exception{     
              String sql = "delete from Pessoa where id = ?";
              PreparedStatement ps = conn.prepareStatement(sql);
              
              ps.setInt(1, pessoa.getId());
              
-             ps.execute();        
+             try{ 
+                 ps.execute();
+                } catch(Exception e) {
+                 return false;
+                }
+             
+             return true;
     }
    
     

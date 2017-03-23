@@ -52,25 +52,21 @@
 
             <!-- Page Content -->
             <div id="page-content-wrapper">    
-                <div class="container">
+                <div class="container">                    
                     <form class="form-horizontal" action="pessoa" method="post">
                         <fieldset>
 
                             <!-- Form Name -->
-                            <legend>Cadastro de Pessoa</legend>  
-                            <c:if test="${retorno == 0}">                           
-                            <div class="alert alert-danger" style="width:80%">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-                                <strong>Ops!</strong> Registro não inserido!
-                            </div>
-                            </c:if>
+                            <legend>Cadastro de Pessoa</legend>      
                                 
-                                <input type="hidden" name="acao" value="add">
+                                <input type="hidden" name="acao" value="<%=request.getParameter("acao")%>">
+                                <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
+                                
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">ID</label>  
                                     <div class="col-md-4">
-                                        <input name="id" class="form-control input-md" id="textinput" type="text" placeholder="" disabled="disabled" value="<c:out value="${p.id}"/>">
+                                        <input name="id-view" class="form-control input-md" id="id" type="text" placeholder="" disabled="disabled" value="<c:out value="${p.id}"/>">
                                     </div>
                                 </div>                            
 
@@ -78,7 +74,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">Nome</label>  
                                     <div class="col-md-4">
-                                        <input name="nome" class="form-control input-md" id="textinput" type="text" placeholder="Nome da Pessoa" value="<c:out value="${p.nome}"/>"">
+                                        <input name="nome" class="form-control input-md" id="nome" type="text" placeholder="Nome da Pessoa" value="<c:out value="${p.nome}"/>"">
                                     </div>
                                 </div>
 
