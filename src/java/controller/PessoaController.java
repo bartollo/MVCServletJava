@@ -55,12 +55,18 @@ public class PessoaController extends HttpServlet {
                 switch(request.getParameter("acao")){
                     case "add":                 
                         if (request.getParameter("nome")!=null) {                            
+                            request.removeAttribute("p");
+                            request.removeAttribute("nome");
+                            request.removeAttribute("id");
+                            request.removeAttribute("retorno");
+                            
                             p.setNome(request.getParameter("nome").toString());
 
                             if(this.addPessoa(p)){                                
                                 request.removeAttribute("nome");
                                 request.removeAttribute("id");
                                 request.removeAttribute("retorno");
+                                request.removeAttribute("p");
                                 
                                 request.getSession().setAttribute("pessoas", pm.selectAll());
                                 request.getSession().setAttribute("retorno", 1);
@@ -96,26 +102,19 @@ public class PessoaController extends HttpServlet {
                             
                             p.setId(Integer.parseInt(request.getParameter("id")));
                             p.setNome(request.getParameter("nome").toString());
-System.out.println("#1-2");
                             if(this.updPessoa(p)){                                
-System.out.println("#2");                                
                                 request.removeAttribute("nome");
                                 request.removeAttribute("id");
                                 request.removeAttribute("retorno");
-System.out.println("#3");                                
                                 request.getSession().setAttribute("pessoas", pm.selectAll());
                                 request.getSession().setAttribute("retorno", 2);
-System.out.println("#4");                                
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward( request, response );
                                 
                             }else{
-System.out.println("#5");                                
                                 request.removeAttribute("nome");
                                 request.removeAttribute("id");
                                 request.removeAttribute("retorno");
-System.out.println("#6");                                                            
                                 request.getSession().setAttribute("retorno", 0);
-System.out.println("#7");                                
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward( request, response );
                                 
                             }                           
@@ -126,9 +125,7 @@ System.out.println("#7");
                             request.removeAttribute("retorno");
                             
                             p = pm.select(Integer.parseInt(request.getParameter("id")));
-System.out.println("#8");                            
                             request.getSession().setAttribute("p", p);
-System.out.println("#9");
                             
                             request.getRequestDispatcher("/pessoaInserir.jsp").forward( request, response );                             
                    
