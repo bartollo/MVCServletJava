@@ -60,12 +60,13 @@
                             <legend>Cadastro de Pessoa</legend>      
                                 
                                 <input type="hidden" name="acao" value="<%=request.getParameter("acao")%>">
+                                <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
                                 
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">ID</label>  
                                     <div class="col-md-4">
-                                        <input name="id-view" class="form-control input-md" id="id" type="text" placeholder="" disabled="disabled" value="">
+                                        <input name="id-view" class="form-control input-md" id="id" type="text" placeholder="" disabled="disabled" value="<c:out value="${p.id}"/>">
                                     </div>
                                 </div>                            
 
@@ -73,7 +74,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">Nome</label>  
                                     <div class="col-md-4">
-                                        <input name="nome" class="form-control input-md" id="nome" type="text" placeholder="Nome da Pessoa" value="">
+                                        <input name="nome" class="form-control input-md" id="nome" type="text" placeholder="Nome da Pessoa" value="<c:out value="${p.nome}"/>"">
                                     </div>
                                 </div>
 

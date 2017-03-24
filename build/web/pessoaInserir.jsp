@@ -60,13 +60,12 @@
                             <legend>Cadastro de Pessoa</legend>      
                                 
                                 <input type="hidden" name="acao" value="<%=request.getParameter("acao")%>">
-                                <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
                                 
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">ID</label>  
                                     <div class="col-md-4">
-                                        <input name="id-view" class="form-control input-md" id="id" type="text" placeholder="" disabled="disabled" value="<c:out value="${p.id}"/>">
+                                        <input name="id-view" class="form-control input-md" id="id" type="text" placeholder="" disabled="disabled" value="">
                                     </div>
                                 </div>                            
 
@@ -74,7 +73,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">Nome</label>  
                                     <div class="col-md-4">
-                                        <input name="nome" class="form-control input-md" id="nome" type="text" placeholder="Nome da Pessoa" value="<c:out value="${p.nome}"/>"">
+                                        <input name="nome" class="form-control input-md" id="nome" type="text" placeholder="Nome da Pessoa" value="">
                                     </div>
                                 </div>
 
@@ -83,8 +82,7 @@
                                 <div class="form-group">
                                     <div class="col-md-8">
                                         <input type="submit" class="btn btn-success" id="button1id" value="Salvar">
-                                        <button class="btn btn-danger" id="button2id">Cancelar</button>                                    
-                                        <button class="btn btn-primary" id="button2id">Voltar</button>
+                                        <a href="/pessoa" class="btn btn-primary" id="button2id">Voltar</a>
                                     </div>
                                 </div>                          
                         </fieldset>

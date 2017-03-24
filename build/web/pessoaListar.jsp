@@ -130,6 +130,6 @@
     
     <script> 
         $( document ).ready(function() {
-            $(".alert").fadeOut(700, function() { $(this).remove(); });        
+            $(".alert").fadeOut(1000, function() { $(this).remove(); });        
     }); </script>
 </html>

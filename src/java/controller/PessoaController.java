@@ -39,113 +39,81 @@ public class PessoaController extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
 
-        entity.Pessoa p = new entity.Pessoa();        
+        entity.Pessoa p;
         model.PessoaModel pm = new model.PessoaModel();
                 
         if (request.getParameter("acao")==null) {
             // ação de listar todas as pessoas
-                       
+            this.clear(request); 
             ArrayList<Pessoa> pessoas = pm.selectAll();              
  
             request.getSession().setAttribute("pessoas", pessoas);
             request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response);
            
         }else{
-        
+            
+                p= new Pessoa();
+                
                 switch(request.getParameter("acao")){
-                    case "add":                 
+                    case "add":                                                                              
                         if (request.getParameter("nome")!=null) {                            
-                            request.removeAttribute("p");
-                            request.removeAttribute("nome");
-                            request.removeAttribute("id");
-                            request.removeAttribute("retorno");
-                            
                             p.setNome(request.getParameter("nome").toString());
+                            this.clear(request);
 
                             if(this.addPessoa(p)){                                
-                                request.removeAttribute("nome");
-                                request.removeAttribute("id");
-                                request.removeAttribute("retorno");
-                                request.removeAttribute("p");
-                                
                                 request.getSession().setAttribute("pessoas", pm.selectAll());
                                 request.getSession().setAttribute("retorno", 1);
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response); 
                             }else{                                
-                                request.removeAttribute("nome");
-                                request.removeAttribute("id");
-                                request.removeAttribute("retorno");
-                                                                
                                 request.getSession().setAttribute("retorno", 0);
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response); 
                                                                
                             }
-                            request.removeAttribute("p");
-                            request.removeAttribute("nome");
-                            request.removeAttribute("id");
-                            request.removeAttribute("retorno");
-                            
                             request.getRequestDispatcher("/pessoaInserir.jsp").forward(request,response);
                          
                         }else{
-                            request.removeAttribute("nome");
-                            request.removeAttribute("id");
-                            request.removeAttribute("retorno");
-                                
+                            this.clear(request);                                
                             request.getRequestDispatcher("/pessoaInserir.jsp").forward( request, response ); 
                         }
                         break;
 
                     case "upd": 
-                        if (request.getParameter("nome")!=null) {
-                            System.out.println("#1 - "+request.getParameter("nome"));
-                            
+                        if (request.getParameter("nome")!=null) {                            
                             p.setId(Integer.parseInt(request.getParameter("id")));
                             p.setNome(request.getParameter("nome").toString());
-                            if(this.updPessoa(p)){                                
-                                request.removeAttribute("nome");
-                                request.removeAttribute("id");
-                                request.removeAttribute("retorno");
+                            this.clear(request);
+                            
+                            if(this.updPessoa(p)){                                                                
                                 request.getSession().setAttribute("pessoas", pm.selectAll());
                                 request.getSession().setAttribute("retorno", 2);
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward( request, response );
                                 
                             }else{
-                                request.removeAttribute("nome");
-                                request.removeAttribute("id");
-                                request.removeAttribute("retorno");
                                 request.getSession().setAttribute("retorno", 0);
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward( request, response );
                                 
                             }                           
                                                         
                         }else{
-                            request.removeAttribute("nome");
-                            request.removeAttribute("id");
-                            request.removeAttribute("retorno");
+                            this.clear(request);
                             
                             p = pm.select(Integer.parseInt(request.getParameter("id")));
                             request.getSession().setAttribute("p", p);
                             
-                            request.getRequestDispatcher("/pessoaInserir.jsp").forward( request, response );                             
+                            request.getRequestDispatcher("/pessoaEditar.jsp").forward( request, response );                             
                    
                         }
 
                         break;
-                    case "del":    
+                    case "del":  
                         p.setId(Integer.parseInt(request.getParameter("id")));
+                        this.clear(request);
                         if(this.delPessoa(p)){    
-                            request.removeAttribute("nome");
-                            request.removeAttribute("id");
-                            request.removeAttribute("retorno");                            
                             
                             request.getSession().setAttribute("pessoas", pm.selectAll());
                             request.getSession().setAttribute("retorno", -1);
                             request.getRequestDispatcher("/pessoaListar.jsp").forward( request, response );
                         }else{
-                            request.removeAttribute("nome");
-                            request.removeAttribute("id");
-                            request.removeAttribute("retorno");                            
                             
                             request.getSession().setAttribute("retorno", 0);
                             request.getRequestDispatcher("/pessoaListar.jsp").forward( request, response );
@@ -158,6 +126,14 @@ public class PessoaController extends HttpServlet {
             }
         }
 
+    }
+    
+    public void clear(HttpServletRequest request){
+       
+        request.removeAttribute("p");
+        request.removeAttribute("nome");
+        request.removeAttribute("id");
+        request.removeAttribute("retorno");
     }
     
     public boolean addPessoa(Pessoa pessoa){  
