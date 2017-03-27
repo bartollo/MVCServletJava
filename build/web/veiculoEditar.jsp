@@ -57,15 +57,15 @@
                         <fieldset>
 
                             <!-- Form Name -->
-                            <legend>Cadastro de Veículo</legend>      
-                                
+                            <legend>Cadastro de Veículo</legend>                                      
                                 <input type="hidden" name="acao" value="<%=request.getParameter("acao")%>">
-                                
+                                <input type="hidden" name="id" value="<%=request.getParameter("id")%>">
+                                                                
                                 <!-- Text input-->
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">ID</label>  
                                     <div class="col-md-4">
-                                        <input name="id-view" class="form-control input-md" id="id" type="text" placeholder="" disabled="disabled" value="">
+                                        <input name="id-view" class="form-control input-md" id="id" type="text" placeholder="" disabled="disabled" value="<c:out value="${v.id}"/>">
                                     </div>
                                 </div>                            
 
@@ -73,7 +73,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">Placa</label>  
                                     <div class="col-md-4">
-                                        <input name="placa" class="form-control input-md" id="placa" type="text" placeholder="Ex: OIU-7777" value="">
+                                        <input name="placa" class="form-control input-md" id="placa" type="text" placeholder="Ex: OIU-7777" value="<c:out value="${v.placa}"/>">
                                     </div>
                                 </div>
 
@@ -82,7 +82,7 @@
                                 <div class="form-group">
                                     <label class="col-md-1 control-label" for="textinput">Marca</label>  
                                     <div class="col-md-4">
-                                        <input name="marca" class="form-control input-md" id="marca" type="text" placeholder="Ex: Hyundai Hb20" value="">
+                                        <input name="marca" class="form-control input-md" id="marca" type="text" placeholder="Ex: Hyundai Hb20" value="<c:out value="${v.marca}"/>">
                                     </div>
                                 </div>
 
@@ -95,7 +95,7 @@
                                         <option value="0">Selecione o proprietário.</option>
                                         
                                         <c:forEach items="${pessoas}" var="p">
-                                            <option value="${p.id}">${p.nome}</option>
+                                            <option value="${p.id}" ${v.pessoa_id == p.id ? 'selected="selected"' : ''}>${p.nome}</option>
                                         </c:forEach>
                                     </select>
                                    

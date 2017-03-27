@@ -4,6 +4,7 @@
     Author     : bartollo_user
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,32 @@
 
         <div class="col-md-12">
             <h1>Lista de Veículos      </h1>
-            <button type="button" class="btn btn-success">Adicionar</button>
+<c:if test="${retorno == 1}">                           
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                <strong>Successo!</strong> Registro inserido!
+            </div>
+            </c:if>    
+            <c:if test="${retorno == 2}">                           
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                <strong>Successo!</strong> Registro alterado!
+            </div>
+            </c:if>    
+            
+            <c:if test="${retorno < 0}">                                           
+            <div class="alert alert-success">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                <strong>Successo!</strong> Registro deletado!
+            </div>
+            </c:if>            
+            <c:if test="${retorno == 0}">                           
+            <div class="alert alert-danger">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                <strong>Erro!</strong> Operação não realizada!
+            </div>
+            </c:if>             
+            <button type="button" class="btn btn-success" onclick="javascript:window.location.href='veiculo?acao=add'">Adicionar</button>
             <div class="table-responsive">
 
 
@@ -74,66 +100,24 @@
 
                     <th>ID</th>
                     <th>Placa</th>
-                    <th>Modelo</th>
-                    <th>Proprietário</th>
+                    <th style="width:20%">Modelo</th>
+                    <th style="width:40%">Proprietário</th>
                     <th>Editar</th>
 
                     <th>Deletar</th>
                     </thead>
                     <tbody>
-
+                        
+                    <c:forEach var="veiculo" items="${veiculos}" >
                         <tr>
-                            <td>Mohsin</td>
-                            <td>Irshad</td>
-                            <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-                            <td>isometric.mohsin@gmail.com</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+                            <td>${veiculo.id}</td>
+                            <td>${veiculo.placa}</td>
+                            <td>${veiculo.marca}</td>
+                            <td>${veiculo.nome}</td>                            
+                            <td><p data-placement="top" data-toggle="tooltip" title="Edit" id="${veiculo.id}"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" onclick="javascript:window.location.href='veiculo?acao=upd&id=${veiculo.id}'"><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+                            <td><p data-placement="top" data-toggle="tooltip" title="Delete" id="${veiculo.id}"><button class="btn confirm-delete btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" onclick="javascript:window.location.href='veiculo?acao=del&id=${veiculo.id}'"><span class="glyphicon glyphicon-trash"></span></button></p></td>
                         </tr>
-
-                        <tr>
-                            <td>Mohsin</td>
-                            <td>Irshad</td>
-                            <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-                            <td>isometric.mohsin@gmail.com</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Mohsin</td>
-                            <td>Irshad</td>
-                            <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-                            <td>isometric.mohsin@gmail.com</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                        </tr>
-
-
-
-                        <tr>
-                            <td>Mohsin</td>
-                            <td>Irshad</td>
-                            <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-                            <td>isometric.mohsin@gmail.com</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>Mohsin</td>
-                            <td>Irshad</td>
-                            <td>CB 106/107 Street # 11 Wah Cantt Islamabad Pakistan</td>
-                            <td>isometric.mohsin@gmail.com</td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Edit"><button class="btn btn-primary btn-xs" data-title="Edit" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
-                            <td><p data-placement="top" data-toggle="tooltip" title="Delete"><button class="btn btn-danger btn-xs" data-title="Delete" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
-                        </tr>
-
-
-
-
+                    </c:forEach>
 
                     </tbody>
 
@@ -158,6 +142,15 @@
 
 
 
-</body>
 
+</body>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <script> 
+        $( document ).ready(function() {
+            $(".alert").fadeOut(1000, function() { $(this).remove(); });        
+    }); </script>
 </html>

@@ -36,6 +36,7 @@ public class PessoaController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                            this.clear(request);
         
         response.setContentType("text/html;charset=UTF-8");
 
@@ -64,16 +65,22 @@ public class PessoaController extends HttpServlet {
                                 request.getSession().setAttribute("pessoas", pm.selectAll());
                                 request.getSession().setAttribute("retorno", 1);
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response); 
+                                this.clear(request); 
+                                
                             }else{                                
                                 request.getSession().setAttribute("retorno", 0);
                                 request.getRequestDispatcher("/pessoaListar.jsp").forward(request,response); 
+                                this.clear(request); 
                                                                
                             }
                             request.getRequestDispatcher("/pessoaInserir.jsp").forward(request,response);
-                         
+                            this.clear(request); 
+     
                         }else{
                             this.clear(request);                                
                             request.getRequestDispatcher("/pessoaInserir.jsp").forward( request, response ); 
+                            this.clear(request); 
+
                         }
                         break;
 
